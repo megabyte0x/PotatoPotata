@@ -36,6 +36,7 @@
     "@ethersproject/solidity": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
     "@maticnetwork/maticjs": "^3.4.0",
+    "@rainbow-me/rainbowkit": "^0.8.1",
     "@ramp-network/ramp-instant-sdk": "^3.2.0",
     "@scaffold-eth/common": "0.0.0",
     "@uniswap/sdk": "^3.0.3",
@@ -72,6 +73,7 @@
     "use-debounce": "^8.0.4",
     "usehooks-ts": "^2.6.0",
     "util": "^0.12.4",
+    "wagmi": "^0.11.4",
     "web3modal": "^1.9.9"
   },
   "devDependencies": {

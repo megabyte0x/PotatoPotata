@@ -1,18 +1,15 @@
 import Head from 'next/head';
-import React, { FC } from 'react';
 
-import { MainPage } from '~~/components/main/MainPage';
-import { TPageProps } from '~~/models/TAppProps';
-
-const Page: FC<TPageProps> = (props) => {
+const Page = (): JSX.Element => {
   return (
     <div className="App">
       <Head>
-        <title>Scaffold-eth-typescript</title>
-        <meta name="description" content="Generated from Scaffold-eth-typescript" />
+        <title>Potato Potata</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainPage pageName="main" {...props}></MainPage>;
+      <div>
+        <h1 className="text-4xl text-primary-500 font-bold">Welcome to Potato Potata</h1>
+      </div>
     </div>
   );
 };
