@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
 
+import "./PP.sol";
+
 contract campaign {
   address admin;
 
   CampaignStatus campaignStatus = CampaignStatus.NOT_LIVE;
+
+  PP nftContract;
 
   mapping(address => string) public proposals;
   mapping(address => bool) public artists;
@@ -15,8 +19,10 @@ contract campaign {
     ENDED
   }
 
-  constructor(address _admin) {
-    admin = _admin;
+  constructor() {
+    admin = msg.sender;
+
+    nftContract = new PP();
   }
 
   modifier onlyAdmin() {
@@ -54,11 +60,25 @@ contract campaign {
     require(success, "ERR:OW");
   }
 
-  function submitProposal(string calldata _proposalCID, address _artistAddress) external onlyNotLiveStatus {
-    proposals[_artistAddress] = _proposalCID;
+  function submitProposal(string calldata _proposalCID) external onlyNotLiveStatus {
+    proposals[msg.sender] = _proposalCID;
   }
 
-  function submitNFT(string calldata _tokenURI) external onlyLiveStatus onlyApprovedArtist {}
+  function acceptProposal(address _artistAddress) external onlyAdmin onlyNotLiveStatus {
+    artists[_artistAddress] = true;
+  }
 
-  function buyNFT(uint256 tokenId) external payable onlyLiveStatus {}
+  function submitNFT(string calldata _tokenURI) external onlyLiveStatus onlyApprovedArtist {
+    nftContract.safeMint(msg.sender, "qewwr");
+  }
+
+  // FUNCTION: To tranfer the ERC721 to the buyer
+  function buyNFT(uint256 tokenId) external payable onlyLiveStatus {
+    (bool success, ) = msg.sender.call{ value: msg.value }("");
+    require(success, "ERR:OB");
+
+    nftContract.approve(msg.sender, tokenId);
+
+    nftContract.safeTransferFrom(msg.sender, address(this), tokenId);
+  }
 }
