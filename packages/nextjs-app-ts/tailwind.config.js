@@ -41,6 +41,9 @@ module.exports = {
       fontFamily: {
         signika: ['Signika Negative', 'sans-serif'],
       },
+      borderWidth: {
+        1.5: '1.5px',
+      },
     },
   },
   plugins: [require('daisyui')],
