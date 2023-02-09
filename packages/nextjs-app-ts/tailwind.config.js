@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
+          DEFAULT: '#513205',
           50: '#EEEBE6',
           100: '#DCD6CD',
           200: '#B9AD9B',
@@ -18,6 +19,7 @@ module.exports = {
           900: '#100A01',
         },
         secondary: {
+          DEFAULT: '#FFD79D',
           50: '#FFFBF5',
           100: '#FFF7EB',
           200: '#FFEFD8',
@@ -35,6 +37,9 @@ module.exports = {
         error: {
           DEFAULT: '#CC615E',
         },
+      },
+      fontFamily: {
+        signika: ['Signika Negative', 'sans-serif'],
       },
     },
   },
