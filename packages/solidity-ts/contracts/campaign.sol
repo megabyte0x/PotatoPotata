@@ -69,16 +69,14 @@ contract campaign {
   }
 
   function submitNFT(string calldata _tokenURI) external onlyLiveStatus onlyApprovedArtist {
-    nftContract.safeMint(msg.sender, "qewwr");
+    nftContract.safeMint(msg.sender, _tokenURI);
   }
 
   // FUNCTION: To tranfer the ERC721 to the buyer
-  function buyNFT(uint256 tokenId) external payable onlyLiveStatus {
+  function buyNFT(uint256 tokenId, address artistAddress) external payable onlyLiveStatus {
     (bool success, ) = msg.sender.call{ value: msg.value }("");
     require(success, "ERR:OB");
 
-    nftContract.approve(msg.sender, tokenId);
-
-    nftContract.safeTransferFrom(msg.sender, address(this), tokenId);
+    nftContract.safeTransferFrom(artistAddress, msg.sender, tokenId);
   }
 }

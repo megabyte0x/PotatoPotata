@@ -14,7 +14,11 @@ contract PP is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
   Counters.Counter private _tokenIdCounter;
 
-  constructor() ERC721("Potato Potata", "PP") {}
+  address campaignAddress;
+
+  constructor() ERC721("Potato Potata", "PP") {
+    campaignAddress = msg.sender;
+  }
 
   function _baseURI() internal pure override returns (string memory) {
     return "ipfs";
@@ -24,8 +28,8 @@ contract PP is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     uint256 tokenId = _tokenIdCounter.current();
     _tokenIdCounter.increment();
     _safeMint(to, tokenId);
+    _setApprovalForAll(to, campaignAddress, true);
     _setTokenURI(tokenId, uri);
-    _setApprovalForAll(msg.sender, address(this), true);
   }
 
   // The following functions are overrides required by Solidity.
