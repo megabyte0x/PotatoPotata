@@ -2,11 +2,7 @@ import Link from 'next/link';
 
 import ConnectButton from './ConnectButton';
 
-const MENU_LIST = [
-  { name: 'Campaigns', href: '/campaigns' },
-  { name: 'About', href: '/about' },
-  { name: 'Team', href: '/team' },
-];
+import { MENU_LIST } from '~~/constants';
 
 const Navbar = (): JSX.Element => {
   return (
