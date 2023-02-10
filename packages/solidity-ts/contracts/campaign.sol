@@ -55,6 +55,7 @@ contract campaign {
 
   function withdraw() external onlyAdmin {
     require(address(this).balance > 0, "ERR:ZB");
+    require(campaignStatus == CampaignStatus.ENDED, "ERR:NE");
 
     (bool success, ) = msg.sender.call{ value: address(this).balance }("");
     require(success, "ERR:OW");
@@ -73,10 +74,27 @@ contract campaign {
   }
 
   // FUNCTION: To tranfer the ERC721 to the buyer
-  function buyNFT(uint256 tokenId, address artistAddress) external payable onlyLiveStatus {
-    (bool success, ) = msg.sender.call{ value: msg.value }("");
-    require(success, "ERR:OB");
+  function buyNFT(
+    uint256 tokenId,
+    address payable artistAddress,
+    uint8 artistSharePercentage,
+    uint256 price
+  ) external payable onlyLiveStatus {
+    require(msg.value == price, "ERR:WP");
+
+    uint256 artistShare = (price * artistSharePercentage * 100) / 10000;
+
+    transferArtistShare(artistAddress, artistShare);
 
     nftContract.safeTransferFrom(artistAddress, msg.sender, tokenId);
   }
+
+  function transferArtistShare(address payable artistAddress, uint256 artistShare) internal {
+    (bool success, ) = artistAddress.call{ value: artistShare }("");
+    require(success, "ERR:AS");
+  }
+
+  receive() external payable {}
+
+  fallback() external payable {}
 }
