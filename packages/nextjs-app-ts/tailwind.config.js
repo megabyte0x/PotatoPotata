@@ -48,6 +48,9 @@ module.exports = {
       scale: {
         '-100': '-1',
       },
+      width: {
+        76: '307px',
+      },
     },
   },
   plugins: [require('daisyui')],
