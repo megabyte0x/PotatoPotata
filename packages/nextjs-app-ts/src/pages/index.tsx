@@ -19,7 +19,7 @@ const Page = (): JSX.Element => {
         </Head>
         <div>
           <Navbar />
-          <div className="flex justify-center mx-48">
+          <div className="flex justify-center lg:mx-48 md:mx-36 mx-16">
             <Image src={Title} />
           </div>
           <div className="mt-16 flex w-full flex-col gap-12 items-center justify-center">
@@ -39,7 +39,6 @@ const Page = (): JSX.Element => {
               LOAD MORE CAMPAIGNS
             </Button>
           </div>
-
           <Footer />
         </div>
       </div>
