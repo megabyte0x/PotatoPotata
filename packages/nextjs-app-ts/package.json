@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@arcana/auth": "^1.0.1",
+    "@arcana/auth-react": "^0.0.3",
     "@babel/runtime": "^7.19.0",
     "@emotion/cache": "^11.10.3",
     "@emotion/react": "^11.10.4",

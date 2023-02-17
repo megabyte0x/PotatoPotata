@@ -1,5 +1,7 @@
 import CoverImage from '/public/assets/cover_image.svg';
 
+const ARCANA_APP_ID = process.env.NEXT_PUBLIC_ARCANA_APP_ID as string;
+
 const MENU_LIST = [
   { name: 'Campaigns', href: '/campaigns' },
   { name: 'About', href: '/about' },
@@ -51,4 +53,4 @@ const CAMPAIGNS = [
   },
 ];
 
-export { MENU_LIST, CAMPAIGNS };
+export { MENU_LIST, CAMPAIGNS, ARCANA_APP_ID };

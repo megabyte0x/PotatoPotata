@@ -1,36 +1,17 @@
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { FC } from 'react';
-import { configureChains, createClient, goerli, WagmiConfig } from 'wagmi';
-import { mainnet, localhost } from 'wagmi/chains';
-import { infuraProvider } from 'wagmi/providers/infura';
-import { publicProvider } from 'wagmi/providers/public';
+import { AuthProvider } from '@arcana/auth';
+import { ProvideAuth } from '@arcana/auth-react';
+import React, { FC } from 'react';
+
+import { ARCANA_APP_ID } from '~~/constants';
 
 interface IWeb3Provider {
   children: React.ReactNode;
 }
 
-const { chains, provider } = configureChains(
-  [mainnet, goerli, localhost],
-  [infuraProvider({ apiKey: process.env.NEXT_PUBLIC_KEY_INFURA }), publicProvider()]
-);
-
-const { connectors } = getDefaultWallets({
-  appName: 'Potato Potata',
-  chains,
-});
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
-});
+const provider = new AuthProvider(ARCANA_APP_ID, { alwaysVisible: false });
 
 const Web3Provider: FC<IWeb3Provider> = ({ children }) => {
-  return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
-    </WagmiConfig>
-  );
+  return <ProvideAuth provider={provider}>{children}</ProvideAuth>;
 };
 
 export default Web3Provider;

@@ -1,11 +1,16 @@
+import { useAuth } from '@arcana/auth-react';
 import Image from 'next/image';
 import Description from 'public/assets/description.svg';
 import Logout from 'public/assets/logout.svg';
 import Speaker from 'public/assets/speaker.svg';
-import { useDisconnect } from 'wagmi';
 
 const WalletMenu = (): JSX.Element => {
-  const { disconnect } = useDisconnect();
+  const auth = useAuth();
+
+  const handleLogout = (): void => {
+    auth.logout();
+  };
+
   return (
     <ul
       tabIndex={0}
@@ -23,11 +28,7 @@ const WalletMenu = (): JSX.Element => {
         </a>
       </li>
       <li>
-        <a
-          className="hover:bg-primary-50 text-primary"
-          onClick={(): void => {
-            disconnect();
-          }}>
+        <a className="hover:bg-primary-50 text-primary" onClick={handleLogout}>
           <Image src={Logout} width={24} height={24} alt="Logout" />
           Disconnect
         </a>
