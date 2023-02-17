@@ -20,7 +20,7 @@ const ConnectButton = (): JSX.Element => {
   return (
     <div>
       {((): JSX.Element => {
-        if (loading || (!isLoggedIn && !user?.address)) {
+        if (loading || (isLoggedIn && !user?.address)) {
           return <Button onClick={(): void => {}}>Loading...</Button>;
         }
 
