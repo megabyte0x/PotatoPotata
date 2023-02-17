@@ -20,9 +20,10 @@ const ConnectButton = (): JSX.Element => {
   return (
     <div>
       {((): JSX.Element => {
-        if (loading || (loading && !user?.address)) {
+        if (loading || (!isLoggedIn && !user?.address)) {
           return <Button onClick={(): void => {}}>Loading...</Button>;
         }
+
         if (isLoggedIn && user?.address) {
           return (
             <div className="dropdown dropdown-end font-signika">
@@ -34,6 +35,7 @@ const ConnectButton = (): JSX.Element => {
             </div>
           );
         }
+
         return <Button onClick={handleLogin}>Connect Wallet</Button>;
       })()}
     </div>
