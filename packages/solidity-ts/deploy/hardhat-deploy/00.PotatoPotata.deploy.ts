@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { DeployFunction } from 'hardhat-deploy/types';
 import { THardhatRuntimeEnvironmentExtended } from 'helpers/types/THardhatRuntimeEnvironmentExtended';
 
@@ -12,13 +13,19 @@ const func: DeployFunction = async (hre: THardhatRuntimeEnvironmentExtended) => 
     log: true,
   });
 
-  /*
-    // Getting a previously deployed contract
-    const YourContract = await ethers.getContract("YourContract", deployer);
-    await YourContract.setPurpose("Hello");
-    
-    //const yourContract = await ethers.getContractAt('YourContract', "0xaAC799eC2d00C013f1F11c37E654e59B0429DF6A") //<-- if you want to instantiate a version of a contract at a specific address!
-  */
+  const PotatoPotata = await hre.ethers.getContract('PotatoPotata', deployer);
+
+  await PotatoPotata.registerCamapaign('TEST NAME', 'TEST DESC', 'TESCT CID');
+
+  const campaignAddrs = await PotatoPotata.getCampaignAddress(deployer);
+
+  console.log('receipt', campaignAddrs);
+
+  const Campaign = await hre.ethers.getContractAt('Campaign', campaignAddrs[0] as string);
+
+  const details = await Campaign.getCampaignDetails();
+
+  console.log(details);
 };
 export default func;
 func.tags = ['PotatoPotata'];
