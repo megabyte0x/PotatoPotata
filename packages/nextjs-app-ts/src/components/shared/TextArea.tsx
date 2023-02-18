@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 interface Props {
   placeholder: string;
-  onChange?: () => void;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   className?: string;
   label?: string;
 }

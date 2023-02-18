@@ -4,7 +4,7 @@ import { CompConfig } from '~~/helpers/types/components';
 
 interface Props {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   size?: 'xs' | 'sm' | 'md' | 'lg';
   type?: 'primary' | 'secondary';
   className?: string;

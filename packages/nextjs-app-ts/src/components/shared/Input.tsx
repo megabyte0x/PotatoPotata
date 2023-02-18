@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 import { CompConfig } from '~~/helpers/types/components';
 
 interface Props {
   placeholder: string;
   size?: 'xs' | 'sm' | 'md' | 'lg';
-  onChange?: () => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   label?: string;
 }
