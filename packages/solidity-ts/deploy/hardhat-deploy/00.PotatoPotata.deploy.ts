@@ -19,13 +19,17 @@ const func: DeployFunction = async (hre: THardhatRuntimeEnvironmentExtended) => 
 
   const campaignAddrs = await PotatoPotata.getCampaignAddress(deployer);
 
-  console.log('receipt', campaignAddrs);
+  console.log(`campaings for ${deployer}`, campaignAddrs);
 
   const Campaign = await hre.ethers.getContractAt('Campaign', campaignAddrs[0] as string);
 
   const details = await Campaign.getCampaignDetails();
 
   console.log(details);
+
+  const campaigns = await PotatoPotata.getCampaigns();
+
+  console.log('campaigns', campaigns);
 };
 export default func;
 func.tags = ['PotatoPotata'];

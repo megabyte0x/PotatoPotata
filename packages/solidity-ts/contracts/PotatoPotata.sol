@@ -6,7 +6,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Campaign.sol";
 
 contract PotatoPotata is Ownable {
-  mapping(address => address[]) campaigns;
+  mapping(address => address[]) campaignsPerAddr;
+  address[] campaigns;
 
   Campaign campaignContract;
 
@@ -16,12 +17,16 @@ contract PotatoPotata is Ownable {
     string memory _imageCID
   ) external returns (address) {
     campaignContract = new Campaign(_name, _descriptionCID, _imageCID);
-    campaigns[msg.sender].push(address(campaignContract));
-
+    campaignsPerAddr[msg.sender].push(address(campaignContract));
+    campaigns.push(address(campaignContract));
     return address(campaignContract);
   }
 
+  function getCampaigns() external view returns (address[] memory) {
+    return campaigns;
+  }
+
   function getCampaignAddress(address _address) external view returns (address[] memory) {
-    return campaigns[_address];
+    return campaignsPerAddr[_address];
   }
 }
