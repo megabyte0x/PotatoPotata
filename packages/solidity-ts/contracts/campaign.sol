@@ -3,7 +3,7 @@ pragma solidity 0.8.18;
 
 import "./PP.sol";
 
-contract campaign {
+contract Campaign {
   address admin;
 
   CampaignStatus campaignStatus = CampaignStatus.NOT_LIVE;
