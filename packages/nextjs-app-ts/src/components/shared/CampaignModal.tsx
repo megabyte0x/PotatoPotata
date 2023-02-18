@@ -15,8 +15,11 @@ const CampaignModal = (): JSX.Element => {
   };
   return (
     <>
-      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      <label htmlFor="my-modal-4" className="modal">
+      <label htmlFor="my-modal-camp" className="btn btn-primary">
+        open campaign modal
+      </label>
+      <input type="checkbox" id="my-modal-camp" className="modal-toggle" />
+      <label htmlFor="my-modal-camp" className="modal">
         <label className="modal-box relative" htmlFor="">
           <h3 className="font-signika text-4xl text-primary font-bold">Create Campaign</h3>
           <form>
@@ -33,6 +36,7 @@ const CampaignModal = (): JSX.Element => {
               </div>
               <div className="flex flex-col w-84">
                 <Input
+                  type="text"
                   size="md"
                   placeholder="Please enter the name of the campaign"
                   label="Name"
