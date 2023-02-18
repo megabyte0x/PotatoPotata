@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import Button from '~~/components/shared/Button';
 import CampaignCard from '~~/components/shared/CampaignCard';
+import CampaignModal from '~~/components/shared/CampaignModal';
 import Footer from '~~/components/shared/Footer';
 import Navbar from '~~/components/shared/Navbar/Navbar';
 import { CAMPAIGNS } from '~~/constants';
@@ -19,6 +20,10 @@ const Page = (): JSX.Element => {
         </Head>
         <div>
           <Navbar />
+          <label htmlFor="my-modal-4" className="btn btn-primary">
+            open modal
+          </label>
+          <CampaignModal />
           <div className="flex justify-center lg:mx-48 md:mx-36 mx-16">
             <Image src={Title} />
           </div>
@@ -39,6 +44,7 @@ const Page = (): JSX.Element => {
               LOAD MORE CAMPAIGNS
             </Button>
           </div>
+
           <Footer />
         </div>
       </div>
