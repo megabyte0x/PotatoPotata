@@ -16,7 +16,11 @@ const func: DeployFunction = async (hre: THardhatRuntimeEnvironmentExtended) => 
   const PotatoPotata = await hre.ethers.getContract('PotatoPotata', deployer);
 
   for (let i = 0; i < 20; i++) {
-    await PotatoPotata.registerCamapaign('TEST NAME', `TEST DESC ${i}`, 'TESCT CID');
+    await PotatoPotata.registerCamapaign(
+      `TEST ${i}`,
+      `bafybeiefmulgcdxqv7clqtk6xqjdaurtpihe6r2g4kduxri64tirfwuafa`,
+      'bafybeiawsafpk4vrslu7syxvtakyg7visgoqo23pcvd3ta7odgj4u2xvey'
+    );
   }
 
   const campaignAddrs = await PotatoPotata.getCampaignAddress(deployer);
@@ -29,7 +33,7 @@ const func: DeployFunction = async (hre: THardhatRuntimeEnvironmentExtended) => 
 
   console.log(details);
 
-  const campaigns = await PotatoPotata.getCampaigns(0);
+  const campaigns = await PotatoPotata.getCampaigns(0, false);
 
   console.log('campaigns', campaigns);
 };

@@ -1,6 +1,4 @@
-import { CIDString, Filelike, Web3Storage } from 'web3.storage';
-import { getFilesFromPath } from 'web3.storage';
-import { File } from 'web3.storage';
+import { CIDString, Filelike, Web3Storage, getFilesFromPath, File } from 'web3.storage';
 
 import { WEB3_STORAGE_API_KEY } from '~~/constants';
 
