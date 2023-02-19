@@ -1,18 +1,31 @@
 import React, { ChangeEvent } from 'react';
+import storeFiles from '../Web3StorageProvider';
+import storeImage from '../Web3StorageProvider';
+import PotatoPotata from '../../../../solidity-ts/generated/hardhat/deployments/localhost/PotatoPotata.json';
 
 import Button from './Button';
 import Input from './Input';
 import TextArea from './TextArea';
+import { Transaction, ethers } from 'ethers';
 
 const CampaignModal = (): JSX.Element => {
   const [file, setFile] = React.useState<File | null>(null);
   const [name, setName] = React.useState<string>('');
   const [description, setDescription] = React.useState<string>('');
 
-  const createCampaign = (e: { preventDefault: () => void }): void => {
+  const createCampaign = async (e: { preventDefault: () => void }): Promise<void> => {
     e.preventDefault();
     console.log(file, name, description);
+    const cid = storeFiles(name, description);
+    const cidImage = storeImage(file);
+    const provider = new ethers.providers.JsonRpcProvider();
+    const potatoPotata = new ethers.Contract(PotatoPotata.address, PotatoPotata.abi, provider);
+
+    await potatoPotata.registerCampaign(name, cid, cidImage).then((tx: Transaction) => {
+      console.log(tx);
+    });
   };
+
   return (
     <>
       <label htmlFor="my-modal-camp" className="btn btn-primary">
