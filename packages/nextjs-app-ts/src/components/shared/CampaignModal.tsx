@@ -21,14 +21,16 @@ const CampaignModal = (): JSX.Element => {
     if (file && name && description) {
       console.log(file, name, description);
       const cid = storeFiles(name, description);
-      const cidImage = storeImage(file);
+      const cidURL = `https://${cid}.ipfs.w3s.link/${name}.json`;
 
+      const cidImage = storeImage(file);
+      const cidImageURL = `https://${cidImage}.ipfs.w3s.link/${file.name}`;
       const ethersProvider = new ethers.providers.Web3Provider(provider);
       const signer = ethersProvider.getSigner();
 
       const potatoPotata = new ethers.Contract(PotatoPotata.address, PotatoPotata.abi, signer);
 
-      await potatoPotata.registerCamapaign(name, cid, cidImage).then((tx: Transaction) => {
+      await potatoPotata.registerCamapaign(name, cidURL, cidImageURL).then((tx: Transaction) => {
         console.log(tx);
       });
     }
