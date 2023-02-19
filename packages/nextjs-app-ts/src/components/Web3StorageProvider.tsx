@@ -16,15 +16,23 @@ async function getFiles(path: string): Promise<Filelike[]> {
   return files;
 }
 
-async function storeFiles(): Promise<CIDString> {
-  const obj = { hello: 'world' };
+async function storeFiles(name: string, description: string): Promise<CIDString> {
+  const obj = { name: name, description: description };
   const buffer = Buffer.from(JSON.stringify(obj));
 
-  const files = [new File(['contents-of-file-1'], 'plain-utf8.txt'), new File([buffer], 'hello.json')];
+  const files = [new File([buffer], `${name}.json`)];
   const client = Web3StorageProvider();
   const cid = await client.put(files);
   console.log('stored files with cid:', cid);
   return cid;
 }
 
-module.exports = { Web3StorageProvider, getFiles, storeFiles };
+async function storeImage(file: File): Promise<CIDString> {
+  const files = [file];
+  const client = Web3StorageProvider();
+  const cid = await client.put(files);
+  console.log('stored files with cid:', cid);
+  return cid;
+}
+
+export default { storeFiles, storeImage };
