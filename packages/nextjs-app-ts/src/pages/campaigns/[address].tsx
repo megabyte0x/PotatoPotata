@@ -11,6 +11,7 @@ import Footer from '~~/components/shared/Footer';
 import Navbar from '~~/components/shared/Navbar/Navbar';
 import getDescription from '~~/lib/getDescription';
 import { shortenAddress } from '~~/lib/shortenAddres';
+import ProposalModal from '~~/components/shared/ProposalModal';
 
 interface CampaignNextPageContext extends NextPageContext {
   params: {
@@ -93,7 +94,7 @@ const Campaigns: FC<Campaign> = ({ address, name, descriptionCID, imageCID, fund
                   className="rounded-md"
                   height={366}
                   width={900}
-                  src={`https://w3s.link/ipfs/${imageCID}/image.jpg`}
+                  src={`https://w3s.link/ipfs/${imageCID}/image.jpeg`}
                 />
               </div>
               <div className="flex mt-6">
@@ -111,7 +112,10 @@ const Campaigns: FC<Campaign> = ({ address, name, descriptionCID, imageCID, fund
                 <p className="text-sm text-secondary-800">{descriptionCID}</p>
               </div>
               <div>
-                <h2 className="font-bold text-primary mt-6 text-xl">Campaign Collections</h2>
+                <div className="flex items-center">
+                  <h2 className="font-bold flex-1 text-primary mt-6 mb-4 text-xl">Campaign Collections</h2>
+                  <ProposalModal />
+                </div>
               </div>
             </div>
           </div>

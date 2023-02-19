@@ -19,7 +19,7 @@ const func: DeployFunction = async (hre: THardhatRuntimeEnvironmentExtended) => 
     await PotatoPotata.registerCamapaign(
       `TEST ${i}`,
       `bafybeiefmulgcdxqv7clqtk6xqjdaurtpihe6r2g4kduxri64tirfwuafa`,
-      'bafybeiawsafpk4vrslu7syxvtakyg7visgoqo23pcvd3ta7odgj4u2xvey'
+      'bafybeic6aawuejwm5vmk3hvkia5zrq2r7a465sporsfxhvdhaqi37dgaim'
     );
   }
 

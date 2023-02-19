@@ -19,7 +19,7 @@ const ProposalModal = (): JSX.Element => {
   return (
     <>
       <label htmlFor="my-modal-prop" className="btn btn-primary">
-        open proposal modal
+        Create Proposal
       </label>
       <input type="checkbox" id="my-modal-prop" className="modal-toggle" />
       <label htmlFor="my-modal-prop" className="modal">

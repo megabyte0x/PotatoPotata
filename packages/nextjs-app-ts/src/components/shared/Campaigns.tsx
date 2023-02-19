@@ -8,6 +8,7 @@ import Button from './Button';
 import CampaignCard from './CampaignCard';
 
 import getDescription from '~~/lib/getDescription';
+import CampaignModal from './CampaignModal';
 
 interface Campaign {
   address: string;
@@ -69,10 +70,11 @@ const Campaigns = (): JSX.Element => {
           />
         ))}
       </div>
-      <div className="flex justify-center mb-16">
+      <div className="flex justify-center gap-4 mb-16">
         <Button size="md" onClick={fetchCampaigns}>
           LOAD MORE CAMPAIGNS
         </Button>
+        <CampaignModal />
       </div>
     </>
   );

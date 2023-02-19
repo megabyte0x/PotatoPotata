@@ -21,10 +21,10 @@ const CampaignModal = (): JSX.Element => {
     if (file && name && description) {
       console.log(file, name, description);
       const cid = storeFiles(name, description);
-      const cidURL = `https://${cid}.ipfs.w3s.link/${name}.json`;
+      const cidURL = `https://w3s.link/ipfs/${cid}${name}.json`;
 
       const cidImage = storeImage(file);
-      const cidImageURL = `https://${cidImage}.ipfs.w3s.link/${file.name}`;
+      const cidImageURL = `https://w3s.link/ipfs/${cidImage}/${file.name}`;
       const ethersProvider = new ethers.providers.Web3Provider(provider);
       const signer = ethersProvider.getSigner();
 
@@ -38,8 +38,8 @@ const CampaignModal = (): JSX.Element => {
 
   return (
     <>
-      <label htmlFor="my-modal-camp" className="btn btn-primary">
-        open campaign modal
+      <label htmlFor="my-modal-camp" className="btn btn-secondary">
+        Create Campaign
       </label>
       <input type="checkbox" id="my-modal-camp" className="modal-toggle" />
       <label htmlFor="my-modal-camp" className="modal">
