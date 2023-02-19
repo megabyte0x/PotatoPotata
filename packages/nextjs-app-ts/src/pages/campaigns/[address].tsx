@@ -87,7 +87,7 @@ const Campaigns: FC<Campaign> = ({ address, name, descriptionCID, imageCID, fund
                   className="rounded-md"
                   height={366}
                   width={900}
-                  src={`https://w3s.link/ipfs/${imageCID}/1500x500.jpg`}
+                  src={`https://w3s.link/ipfs/${imageCID}/image.jpg`}
                 />
               </div>
               <div className="flex mt-6">
