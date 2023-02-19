@@ -8,7 +8,7 @@ interface IWeb3Provider {
   children: React.ReactNode;
 }
 
-const provider = new AuthProvider(ARCANA_APP_ID, { alwaysVisible: false });
+const provider = new AuthProvider(ARCANA_APP_ID, { alwaysVisible: true });
 
 const Web3Provider: FC<IWeb3Provider> = ({ children }) => {
   return <ProvideAuth provider={provider}>{children}</ProvideAuth>;

@@ -6,22 +6,36 @@ import Button from '../Button';
 
 import WalletMenu from './WalletMenu';
 
+import useWallet from '~~/hooks/useWallet';
+import addMantle from '~~/lib/addMantle';
 import { shortenAddress } from '~~/lib/shortenAddres';
 
 const ConnectButton = (): JSX.Element => {
-  const { loading, connect, user, isLoggedIn } = useAuth();
+  const { loading, connect, user, isLoggedIn, provider } = useAuth();
+  const { chain } = useWallet(provider);
 
   const handleLogin = (): void => {
     connect()
       .then((res) => {})
       .catch((err) => {});
   };
-
   return (
     <div>
       {((): JSX.Element => {
         if (loading || (isLoggedIn && !user?.address)) {
           return <Button onClick={(): void => {}}>Loading...</Button>;
+        }
+
+        if (chain !== '0x1389') {
+          return (
+            <Button
+              className="btn flex gap-2 btn-secondary btn-sm text-base"
+              onClick={(): void => {
+                void addMantle(provider);
+              }}>
+              WRONG NETWORK
+            </Button>
+          );
         }
 
         if (isLoggedIn && user?.address) {
