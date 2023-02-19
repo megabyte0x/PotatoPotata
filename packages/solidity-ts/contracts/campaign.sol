@@ -5,6 +5,15 @@ import "./PP.sol";
 
 contract Campaign {
   address admin;
+  string public name;
+  string public descriptionCID;
+  string public imageCID;
+
+  struct CampaignDetails {
+    string name;
+    string descriptionCID;
+    string imageCID;
+  }
 
   CampaignStatus campaignStatus = CampaignStatus.NOT_LIVE;
 
@@ -19,8 +28,15 @@ contract Campaign {
     ENDED
   }
 
-  constructor() {
+  constructor(
+    string memory _name,
+    string memory _descriptionCID,
+    string memory _imageCID
+  ) {
     admin = msg.sender;
+    name = _name;
+    descriptionCID = _descriptionCID;
+    imageCID = _imageCID;
 
     nftContract = new PP();
   }
@@ -71,6 +87,10 @@ contract Campaign {
 
   function submitNFT(string calldata _tokenURI) external onlyLiveStatus onlyApprovedArtist {
     nftContract.safeMint(msg.sender, _tokenURI);
+  }
+
+  function getCampaignDetails() external view returns (CampaignDetails memory) {
+    return CampaignDetails(name, descriptionCID, imageCID);
   }
 
   // FUNCTION: To tranfer the ERC721 to the buyer

@@ -1,7 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
-
-import Button from './Button';
 
 import { Campaign } from '~~/helpers/types/components';
 interface Props extends Campaign {
@@ -14,7 +13,7 @@ const CampaignCard: FC<Props> = ({ campaign, border, className = '' }): JSX.Elem
     <>
       <div className={`card ${border ? 'border-primary border-3' : ''} w-76 bg-base-100 shadow-xl ${className}`}>
         <figure className="rounded-xl">
-          <Image src={campaign.image} alt={campaign.title} />
+          <Image src={campaign.image} height={175} width={300} alt={campaign.title} />
         </figure>
         <div className="card-body p-4 font-signika">
           <h2 className="card-title font-bold text-primary">{campaign.title}</h2>
@@ -32,9 +31,9 @@ const CampaignCard: FC<Props> = ({ campaign, border, className = '' }): JSX.Elem
               <p className="text-primary-200 leading-tight self-center text-sm">Participating</p>
             </div>
           </div>
-          <Button onClick={(): void => {}} type="primary" size="md">
-            Participate
-          </Button>
+          <Link href={'campaigns/' + campaign.address}>
+            <a className="btn btn-primary btn-md">Participate</a>
+          </Link>
         </div>
       </div>
     </>
