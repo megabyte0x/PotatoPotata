@@ -35,4 +35,4 @@ async function storeImage(file: File): Promise<CIDString> {
   return cid;
 }
 
-export default { storeFiles, storeImage };
+export { storeFiles, storeImage };
