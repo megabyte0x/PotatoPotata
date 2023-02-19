@@ -22,8 +22,15 @@ contract PotatoPotata is Ownable {
     return address(campaignContract);
   }
 
-  function getCampaigns() external view returns (address[] memory) {
-    return campaigns;
+  function getCampaigns(uint256 cursor) external view returns (address[] memory data) {
+    data = new address[](6);
+    for (uint256 i = 0; i < 6; i++) {
+      if (cursor + i >= campaigns.length) {
+        return data;
+      }
+      data[i] = campaigns[cursor + i];
+    }
+    return data;
   }
 
   function getCampaignAddress(address _address) external view returns (address[] memory) {

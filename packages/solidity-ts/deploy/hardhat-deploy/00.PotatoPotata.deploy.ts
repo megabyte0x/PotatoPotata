@@ -15,7 +15,9 @@ const func: DeployFunction = async (hre: THardhatRuntimeEnvironmentExtended) => 
 
   const PotatoPotata = await hre.ethers.getContract('PotatoPotata', deployer);
 
-  await PotatoPotata.registerCamapaign('TEST NAME', 'TEST DESC', 'TESCT CID');
+  for (let i = 0; i < 20; i++) {
+    await PotatoPotata.registerCamapaign('TEST NAME', `TEST DESC ${i}`, 'TESCT CID');
+  }
 
   const campaignAddrs = await PotatoPotata.getCampaignAddress(deployer);
 
@@ -27,7 +29,7 @@ const func: DeployFunction = async (hre: THardhatRuntimeEnvironmentExtended) => 
 
   console.log(details);
 
-  const campaigns = await PotatoPotata.getCampaigns();
+  const campaigns = await PotatoPotata.getCampaigns(0);
 
   console.log('campaigns', campaigns);
 };
