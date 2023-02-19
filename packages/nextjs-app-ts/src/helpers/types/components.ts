@@ -4,6 +4,7 @@ type CompConfig = {
 
 interface Campaign {
   campaign: {
+    address: string;
     image: string;
     title: string;
     description: string;
