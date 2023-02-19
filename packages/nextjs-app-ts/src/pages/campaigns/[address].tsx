@@ -35,7 +35,7 @@ export const getStaticPaths = async (): Promise<{ paths: string[]; fallback: boo
   const provider = new ethers.providers.JsonRpcProvider();
   const potatoPotata = new ethers.Contract(PotatoPotata.address, PotatoPotata.abi, provider);
 
-  const campaignAddrs = await potatoPotata.getCampaigns(0);
+  const campaignAddrs = await potatoPotata.getCampaigns(0, true);
 
   const paths = campaignAddrs.map((addr) => {
     return {
