@@ -7,9 +7,12 @@ import PotatoPotata from '../../../../solidity-ts/generated/hardhat/deployments/
 import Button from './Button';
 import CampaignCard from './CampaignCard';
 
+import getDescription from '~~/lib/getDescription';
+
 interface Campaign {
   address: string;
   name: string;
+  totalArtists: number;
   descriptionCID: string;
   imageCID: string;
 }
@@ -28,9 +31,16 @@ const Campaigns = (): JSX.Element => {
       for (const addr of campaignAddrs) {
         const campaign = new ethers.Contract(addr as string, Campaign.abi, provider);
         const details = (await campaign.getCampaignDetails()) as Campaign;
-        campaignsDetail.push({ ...details, address: addr });
-      }
 
+        const description = await getDescription(details.descriptionCID);
+
+        campaignsDetail.push({
+          ...details,
+          descriptionCID: description.slice(0, 100) + '...',
+          totalArtists: Number(ethers.utils.formatEther(details.totalArtists)),
+          address: addr,
+        });
+      }
       setCampaigns((prev) => [...prev, ...campaignsDetail]);
     } catch (err) {
       console.log(err);
@@ -53,13 +63,13 @@ const Campaigns = (): JSX.Element => {
               title: campaign.name,
               description: campaign.descriptionCID,
               image: campaign.imageCID,
-              participants: 12,
-              time: campaign.descriptionCID,
+              participants: campaign.totalArtists,
+              time: '∞ days',
             }}
           />
         ))}
       </div>
-      <div className="flex justify-center mb-16 mt-12">
+      <div className="flex justify-center mb-16">
         <Button size="md" onClick={fetchCampaigns}>
           LOAD MORE CAMPAIGNS
         </Button>

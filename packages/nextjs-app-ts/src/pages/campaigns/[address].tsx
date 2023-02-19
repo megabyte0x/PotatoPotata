@@ -9,6 +9,7 @@ import PotatoPotata from '../../../../solidity-ts/generated/hardhat/deployments/
 
 import Footer from '~~/components/shared/Footer';
 import Navbar from '~~/components/shared/Navbar/Navbar';
+import getDescription from '~~/lib/getDescription';
 import { shortenAddress } from '~~/lib/shortenAddres';
 
 interface CampaignNextPageContext extends NextPageContext {
@@ -61,8 +62,7 @@ export const getStaticProps = async (context: CampaignNextPageContext): Promise<
   const details = (await campaign.getCampaignDetails()) as Campaign;
   const funds = await provider.getBalance(address);
 
-  const res = await fetch(`https://w3s.link/ipfs/${details.descriptionCID}/description.txt`);
-  const description = await res.text();
+  const description = await getDescription();
 
   console.log(description);
   return {
@@ -82,7 +82,7 @@ const Campaigns: FC<Campaign> = ({ address, name, descriptionCID, imageCID, fund
         <div className="flex flex-col h-screen font-signika justify-between">
           <div className="mb-auto">
             <div className="flex justify-center my-16 flex-col lg:mx-48 md:mx-36 mx-16">
-              <div>
+              <div className="flex justify-center">
                 <Image
                   className="rounded-md"
                   height={366}

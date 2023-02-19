@@ -13,14 +13,17 @@ contract Campaign {
     string name;
     string descriptionCID;
     string imageCID;
+    uint256 totalArtists;
   }
 
   CampaignStatus campaignStatus = CampaignStatus.NOT_LIVE;
 
   PP nftContract;
 
+  uint256 public totalArtists;
+
   mapping(address => string) public proposals;
-  mapping(address => bool) public artists;
+  mapping (address => bool) public artists;
 
   enum CampaignStatus {
     NOT_LIVE,
@@ -83,6 +86,7 @@ contract Campaign {
 
   function acceptProposal(address _artistAddress) external onlyAdmin onlyNotLiveStatus {
     artists[_artistAddress] = true;
+    totalArtists++;
   }
 
   function submitNFT(string calldata _tokenURI) external onlyLiveStatus onlyApprovedArtist {
@@ -90,7 +94,7 @@ contract Campaign {
   }
 
   function getCampaignDetails() external view returns (CampaignDetails memory) {
-    return CampaignDetails(name, descriptionCID, imageCID);
+    return CampaignDetails(name, descriptionCID, imageCID, totalArtists);
   }
 
   // FUNCTION: To tranfer the ERC721 to the buyer

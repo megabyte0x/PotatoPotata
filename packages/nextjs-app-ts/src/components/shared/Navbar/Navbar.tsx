@@ -9,7 +9,9 @@ const Navbar = (): JSX.Element => {
     <>
       <div className="navbar min-h-0 bg-base-100">
         <div className="flex-1">
-          <a className="normal-case font-bold font-signika text-primary text-3xl">Potato Potata</a>
+          <Link href="/">
+            <a className="normal-case font-bold font-signika text-primary text-3xl">Potato Potata</a>
+          </Link>
         </div>
         <ul className="flex font-signika font-bold text-primary items-center flex-row gap-6">
           {MENU_LIST.map((item) => {
