@@ -13,7 +13,12 @@ const CampaignCard: FC<Props> = ({ campaign, border, className = '' }): JSX.Elem
     <>
       <div className={`card ${border ? 'border-primary border-3' : ''} w-76 bg-base-100 shadow-xl ${className}`}>
         <figure className="rounded-xl">
-          <Image src={campaign.image} height={175} width={300} alt={campaign.title} />
+          <Image
+            src={`https://w3s.link/ipfs/${campaign.image}/image.jpeg`}
+            height={175}
+            width={300}
+            alt={campaign.title}
+          />
         </figure>
         <div className="card-body p-4 font-signika">
           <h2 className="card-title font-bold text-primary">{campaign.title}</h2>

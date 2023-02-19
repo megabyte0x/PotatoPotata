@@ -7,8 +7,13 @@ import PotatoPotata from '../../../../solidity-ts/generated/hardhat/deployments/
 import Button from './Button';
 import CampaignCard from './CampaignCard';
 
+import getDescription from '~~/lib/getDescription';
+import CampaignModal from './CampaignModal';
+
 interface Campaign {
+  address: string;
   name: string;
+  totalArtists: number;
   descriptionCID: string;
   imageCID: string;
 }
@@ -21,15 +26,22 @@ const Campaigns = (): JSX.Element => {
 
   const fetchCampaigns = async (): Promise<void> => {
     try {
-      const campaignAddrs = await potatoPotata.getCampaigns(campaigns.length);
+      const campaignAddrs = await potatoPotata.getCampaigns(campaigns.length, false);
       const campaignsDetail: Campaign[] = [];
 
       for (const addr of campaignAddrs) {
         const campaign = new ethers.Contract(addr as string, Campaign.abi, provider);
         const details = (await campaign.getCampaignDetails()) as Campaign;
-        campaignsDetail.push({ ...details });
-      }
 
+        const description = await getDescription(details.descriptionCID);
+
+        campaignsDetail.push({
+          ...details,
+          descriptionCID: description.slice(0, 100) + '...',
+          totalArtists: Number(ethers.utils.formatEther(details.totalArtists)),
+          address: addr,
+        });
+      }
       setCampaigns((prev) => [...prev, ...campaignsDetail]);
     } catch (err) {
       console.log(err);
@@ -43,27 +55,26 @@ const Campaigns = (): JSX.Element => {
 
   return (
     <>
-      <div className="mt-16 flex w-full flex-col gap-12 items-center justify-center">
-        <h1 className="font-signika font-bold text-4xl text-primary">Active Campaigns</h1>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 items-center gap-y-12 mx-8 gap-x-8">
-          {campaigns.map((campaign, index) => (
-            <CampaignCard
-              key={index}
-              campaign={{
-                title: campaign.name,
-                description: campaign.descriptionCID,
-                image: campaign.imageCID,
-                participants: 12,
-                time: campaign.descriptionCID,
-              }}
-            />
-          ))}
-        </div>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 items-center gap-y-12 mx-8 gap-x-8">
+        {campaigns.map((campaign, index) => (
+          <CampaignCard
+            key={index}
+            campaign={{
+              address: campaign.address,
+              title: campaign.name,
+              description: campaign.descriptionCID,
+              image: campaign.imageCID,
+              participants: campaign.totalArtists,
+              time: '∞ days',
+            }}
+          />
+        ))}
       </div>
-      <div className="flex justify-center mb-16 mt-12">
+      <div className="flex justify-center gap-4 mb-16">
         <Button size="md" onClick={fetchCampaigns}>
           LOAD MORE CAMPAIGNS
         </Button>
+        <CampaignModal />
       </div>
     </>
   );

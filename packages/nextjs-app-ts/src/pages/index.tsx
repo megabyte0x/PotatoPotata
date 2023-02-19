@@ -20,8 +20,6 @@ const Page = (): JSX.Element => {
         <Navbar />
         <div className="flex flex-col h-screen justify-between">
           <div className="mb-auto">
-            <CampaignModal />
-            <ProposalModal />
             <div className="flex justify-center lg:mx-48 md:mx-36 mx-16">
               <Image src={Title} />
             </div>

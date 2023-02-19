@@ -1,4 +1,9 @@
+import { useAuth } from '@arcana/auth-react';
+import { Transaction, ethers } from 'ethers';
 import React, { ChangeEvent } from 'react';
+
+import PotatoPotata from '../../../../solidity-ts/generated/hardhat/deployments/localhost/PotatoPotata.json';
+import { storeFiles, storeImage } from '../Web3StorageProvider';
 
 import Button from './Button';
 import Input from './Input';
@@ -9,14 +14,32 @@ const CampaignModal = (): JSX.Element => {
   const [name, setName] = React.useState<string>('');
   const [description, setDescription] = React.useState<string>('');
 
-  const createCampaign = (e: { preventDefault: () => void }): void => {
+  const { provider } = useAuth();
+
+  const createCampaign = async (e: { preventDefault: () => void }): Promise<void> => {
     e.preventDefault();
-    console.log(file, name, description);
+    if (file && name && description) {
+      console.log(file, name, description);
+      const cid = storeFiles(name, description);
+      const cidURL = `https://w3s.link/ipfs/${cid}${name}.json`;
+
+      const cidImage = storeImage(file);
+      const cidImageURL = `https://w3s.link/ipfs/${cidImage}/${file.name}`;
+      const ethersProvider = new ethers.providers.Web3Provider(provider);
+      const signer = ethersProvider.getSigner();
+
+      const potatoPotata = new ethers.Contract(PotatoPotata.address, PotatoPotata.abi, signer);
+
+      await potatoPotata.registerCamapaign(name, cidURL, cidImageURL).then((tx: Transaction) => {
+        console.log(tx);
+      });
+    }
   };
+
   return (
     <>
-      <label htmlFor="my-modal-camp" className="btn btn-primary">
-        open campaign modal
+      <label htmlFor="my-modal-camp" className="btn btn-secondary">
+        Create Campaign
       </label>
       <input type="checkbox" id="my-modal-camp" className="modal-toggle" />
       <label htmlFor="my-modal-camp" className="modal">
