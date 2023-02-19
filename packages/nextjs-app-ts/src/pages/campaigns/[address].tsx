@@ -34,6 +34,7 @@ interface Campaign {
   descriptionCID: string;
   imageCID: string;
   funds: string;
+  totalArtists: string;
 }
 
 export const getStaticPaths = async (): Promise<{ paths: string[]; fallback: boolean }> => {
@@ -60,13 +61,18 @@ export const getStaticProps = async (context: CampaignNextPageContext): Promise<
 
   const campaign = new ethers.Contract(address, Campaign.abi, provider);
   const details = (await campaign.getCampaignDetails()) as Campaign;
+
   const funds = await provider.getBalance(address);
+  const description = await getDescription(details.descriptionCID);
 
-  const description = await getDescription();
-
-  console.log(description);
   return {
-    props: { ...details, descriptionCID: description, address, funds: ethers.utils.formatEther(funds) },
+    props: {
+      name: details.name,
+      imageCID: details.imageCID,
+      descriptionCID: description,
+      address,
+      funds: ethers.utils.formatEther(funds),
+    },
   };
 };
 
